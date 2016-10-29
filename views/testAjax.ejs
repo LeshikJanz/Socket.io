@@ -1,0 +1,31 @@
+<% layout("layout/page") %>
+<%- reactMessage %>
+
+    <text>Сообщение</text><br>
+    <input id="message" type="text"><br><br>
+
+<script>
+    var respon = "";
+    var input = message;
+
+    input.oninput = function(){
+        var data = {
+            message: $('#message').val()
+        }
+
+        var jqXHR = $.ajax({
+            url: "/testAjax",
+            method: "POST",
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function(xhr, str) {
+                console.log("Успешный Ajax-запрос");
+            },
+            error:  function(xhr, str){
+                alert('Возникла ошибка: ' + xhr.responseCode);
+            }
+        });
+        return false;
+    };
+
+</script>
